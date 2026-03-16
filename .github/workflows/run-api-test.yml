@@ -1,0 +1,27 @@
+name: Automated API Testing
+
+#Kapan robot dijalankan
+on:
+  push:
+    branches: ["main", "master"]
+  pull_request:
+    branches: ["main", "master"]
+
+#Tugas:
+jobs:
+  build:
+    runs-on: ubuntu-latest #Pinjam server linux gratis dari github
+
+    steps:
+      - name: 1. Get Code from GitHub
+        uses: actions/checkout@v3
+
+      - name: 2. Install Java 21 in Linux Server
+        uses: actions/setup-java@v3
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: 3. Execute Test
+        run: mvn clean test
